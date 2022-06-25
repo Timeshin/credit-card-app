@@ -6,8 +6,7 @@ const uuid = require('uuid');
 const PORT = process.env.PORT || 5000
 
 const client = Redis.createClient({
-  port: 6379,
-  host: "127.0.0.1"
+  url: process.env.REDIS_TLS_URL || process.env.REDIS_URL
 })
 client.connect()
 
@@ -32,6 +31,10 @@ app.post('/creditCards', async (req, res) => {
   .catch(() => {
     res.sendStatus(404)
   })
+})
+
+app.get('/', (req, res) => {
+  res.json('Success')
 })
 
 
